@@ -1,0 +1,26 @@
+King's pawn opening - DONE
+Queen's paw opening - DONE
+Bird's Opening - DONE
+Van't Kruijs Opening - DONE
+
+- French defense - DONE
+- King's Pawn game - é igual à king's pawn opening
+- confirmar que as nossas aberturas tem os mesmo nomes no ECO.json e alterar no nosso em consonancia - DONE
+- encontrar uma imagem a substituir o avatar.png (o que tem o homem da capa) - DONE
+
+Arranjar icones para o new, back e front - DONE
+
+- about dialog na APP
+- imagem de inicio nos fragmentos
+- mudar o visto na lista para o nosso cavalo avatar
+- strings internacionalizacao
+- adicionar na Google play a versao TABLET! :D
+
+- actualizar manual de utilizador com indicacao que app esta internacionzliada em 2 linguas. -> DONE
+- ter mais um botao no site a dizer "Get it" para ir ao google play -> DONE
+- actualizar site com novos imagens -> DONE
+- adicionar de utilizador TABLET! :D -> DONE
+- terminar ao manual tecnico -> DONE
+- powerpoint -> DONE
+
+- fazer video (e enviar para o play)
