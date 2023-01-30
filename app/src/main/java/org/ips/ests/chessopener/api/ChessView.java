@@ -50,10 +50,10 @@ import android.widget.ViewSwitcher;
  * 
  */
 public class ChessView extends UI {
-	private ChessViewBase _view;
+	private final ChessViewBase _view;
 
-    private Button _btnCurrentOpening;
-	private Activity _parent;
+    private final Button _btnCurrentOpening;
+	private final Activity _parent;
 	private ImageButton _butPlay;
 	private ViewAnimator _viewAnimator;
 	private ProgressBar _progressPlay;
@@ -61,13 +61,12 @@ public class ChessView extends UI {
 	private int _dpadPos;
 	public static int _playMode;
 	private String _sPrevECO;
-	private HorizontalScrollView _hScrollHistory;
-	private ScrollView _vScrollHistory;
-	private RelativeLayout _layoutHistory;
-	private ArrayList<PGNView> _arrPGNView;
-	private LayoutInflater _inflater;
+	private final HorizontalScrollView _hScrollHistory;
+	private final ScrollView _vScrollHistory;
+	private final RelativeLayout _layoutHistory;
+	private final ArrayList<PGNView> _arrPGNView;
+	private final LayoutInflater _inflater;
 	private boolean _bAutoFlip, _bShowMoves, _bShowLastMove;
-	private Timer _timer;
 	private ViewSwitcher _switchTurnMe, _switchTurnOpp;
 	private SeekBar _seekBar; 
 	private Vibrator _vibrator;
@@ -76,7 +75,7 @@ public class ChessView extends UI {
 
 	// keep track of captured pieces
 	private ImageView[][] _arrImageCaptured;
-	private TextView[][] _arrTextCaptured;
+	private final TextView[][] _arrTextCaptured;
 	///////////////////////////////
 	
 	public static int SUBVIEW_CPU 		= 0;
@@ -92,7 +91,7 @@ public class ChessView extends UI {
 		WeakReference<ChessView> _chessView;
 		
 		InnerHandler(ChessView view){
-			_chessView = new WeakReference<ChessView>(view);
+			_chessView = new WeakReference<>(view);
 		}
 		@Override public void handleMessage(Message msg) {
         	
@@ -144,15 +143,11 @@ public class ChessView extends UI {
 		_bShowLastMove = true;
 		_dpadPos = -1;
 		
-		_arrPGNView = new ArrayList<PGNView>();
+		_arrPGNView = new ArrayList<>();
 		
 		_inflater = (LayoutInflater)_parent.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 		
-		OnClickListener ocl = new OnClickListener() {
-        	public void onClick(View arg0) {
-        		handleClick(_view.getIndexOfButton(arg0));
-        	}
-		};
+		OnClickListener ocl = arg0 -> handleClick(_view.getIndexOfButton(arg0));
 		
 		_vScrollHistory = null;
 		_hScrollHistory = null;
@@ -164,50 +159,43 @@ public class ChessView extends UI {
 
 
         _btnCurrentOpening = (Button)_parent.findViewById(R.id.ButtonCurrentOpening);
-        _btnCurrentOpening.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        _btnCurrentOpening.setOnClickListener(v -> {
 
-                Opening opening = OpeningUtils.findOpeningFromString(((Button)v).getText().toString(), Start.openings);
-                if (opening != null) {
-                    Bundle args = new Bundle();
-                    args.putSerializable(Opening.OPENING_BUNDLE_KEY, opening);
+			Opening opening = OpeningUtils.findOpeningFromString(((Button)v).getText().toString(), Start.openings);
+			if (opening != null) {
+				Bundle args = new Bundle();
+				args.putSerializable(Opening.OPENING_BUNDLE_KEY, opening);
 
-                    Intent i = new Intent(_parent, LibraryActivity.class);
-                    i.putExtras(args);
-                    _parent.startActivity(i);
+				Intent i = new Intent(_parent, LibraryActivity.class);
+				i.putExtras(args);
+				_parent.startActivity(i);
 
-                } else {
-                    UiUtils.doToast(_parent, _parent.getString(R.string.toast_opening_not_in_db));
-                }
-            }
-        });
+			} else {
+				UiUtils.doToast(_parent, _parent.getString(R.string.toast_opening_not_in_db));
+			}
+		});
 
 		
-		OnClickListener oclUndo =new OnClickListener() {
-        	public void onClick(View arg0) {
-        		if(m_bActive){
-        			undo();
-        		} else {
-        			stopThreadAndUndo();
-        		}
-        	}
-    	};
+		OnClickListener oclUndo = arg0 -> {
+			if(m_bActive){
+				undo();
+			} else {
+				stopThreadAndUndo();
+			}
+		};
 
 		ImageButton butPrevious = (ImageButton)_parent.findViewById(R.id.ButtonPrevious);
 		if(butPrevious != null){
 			//butPrevious.setFocusable(false);
 			butPrevious.setOnClickListener(oclUndo);
 		}
-		OnClickListener oclFf = new OnClickListener() {
-        	public void onClick(View arg0) {
-        		if(m_bActive){
-        			jumptoMove(_jni.getNumBoard());
-        			updateState();
-        		}
-        			
-        	}
-    	};
+		OnClickListener oclFf = arg0 -> {
+			if(m_bActive){
+				jumptoMove(_jni.getNumBoard());
+				updateState();
+			}
+
+		};
     	
 		ImageButton butNext = (ImageButton)_parent.findViewById(R.id.ButtonNext);
 		if(butNext != null){
@@ -218,15 +206,13 @@ public class ChessView extends UI {
         Button butNewGame = (Button)_parent.findViewById(R.id.ButtonNewGame);
 		if(butNewGame != null){
 			//butNewGame.setFocusable(false);
-			butNewGame.setOnClickListener(new OnClickListener() {
-	        	public void onClick(View arg0) {
+			butNewGame.setOnClickListener(arg0 -> {
 //	        		Intent intent = new Intent();
 //	        	    intent.setClass(_parent, options.class);
 //	        	    intent.putExtra("requestCode", ChessBoardActivity.REQUEST_NEWGAME);
 //	        		_parent.startActivityForResult(intent, ChessBoardActivity.REQUEST_NEWGAME);
 
-                    newGame();
-	        	}
+				newGame();
 			});
 		}
 
@@ -235,19 +221,14 @@ public class ChessView extends UI {
     	Button bHintGuess = null;
 		if(bHintGuess != null){
 			//bHintGuess.setFocusable(false);
-			bHintGuess.setOnClickListener(new OnClickListener(){
-
-				@Override
-				public void onClick(View v) {
-					int iFrom = getFromOfNextMove();
-					if(iFrom == -1){
-						_tvAnnotateGuess.setText("No move available");
-					} else {
-						m_iFrom = iFrom;
-						paintBoard();
-					}
+			bHintGuess.setOnClickListener(v -> {
+				int iFrom = getFromOfNextMove();
+				if(iFrom == -1){
+					_tvAnnotateGuess.setText("No move available");
+				} else {
+					m_iFrom = iFrom;
+					paintBoard();
 				}
-				
 			});
 		}
 
@@ -259,7 +240,7 @@ public class ChessView extends UI {
 		_lClockStartBlack = 0;
 		_lClockTotal = 0;
 
-		_timer = new Timer(true);
+		Timer _timer = new Timer(true);
         _timer.schedule(new TimerTask(){
 			@Override public void run() {
 				Message msg = new Message();
@@ -659,7 +640,7 @@ public class ChessView extends UI {
 		
 		_view.OnResume();		
 		
-		_view._showCoords = prefs.getBoolean("showCoords", false);
+		ChessViewBase._showCoords = prefs.getBoolean("showCoords", false);
 		
 		String sEngine = prefs.getString("UCIEngine", null);
 		if(sEngine != null){
@@ -707,7 +688,7 @@ public class ChessView extends UI {
 				InputStream in = _parent.getAssets().open("ECO.json");
 				BufferedReader br = new BufferedReader(new InputStreamReader(in));
 	
-				StringBuffer sb = new StringBuffer("");
+				StringBuffer sb = new StringBuffer();
 				String line;
 	
 				while ((line = br.readLine()) != null) {

@@ -12,15 +12,15 @@ public class Opening implements Serializable {
     private static final long serialVersionUID = -2163051469151804394L;
 
     private static final String YOUTUBE_VIDEO = "https://www.youtube.com/watch?v=%s";
-    private static final String YOUTUBE_THUMB = "http://img.youtube.com/vi/%s/0.jpg";
+    private static final String YOUTUBE_THUMB = "https://img.youtube.com/vi/%s/0.jpg";
 
-    private int id;
-    private String youtubeId;
-    private String name;
+    private final int id;
+    private final String youtubeId;
+    private final String name;
 
-    private String description;
-    private String history;
-    private String imageUrl;
+    private final String description;
+    private final String history;
+    private final String imageUrl;
 
     public Opening(int id, String name, String description, String youtubeId, String history, String imageUrl) {
         this.id = id;
@@ -43,8 +43,8 @@ public class Opening implements Serializable {
     /**
      * Constructs an URL based on the requested type from the id
      *
-     * @param youtubeType
-     * @return
+     * @param youtubeType the string with the youtube type
+     * @return formatted string
      */
     private String constructYoutubeURL(String youtubeType) {
         String rc = "";

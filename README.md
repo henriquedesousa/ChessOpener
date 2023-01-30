@@ -22,4 +22,4 @@ For more information about the authors, you can visit the website of this projec
 GNU General Public License, version 2 and MIT License
 
 [1]: https://play.google.com/store/apps/details?id=org.ips.ests.chessopener
-[2]: http://iriki.github.io/ChessOpener/
+[2]: http://henriquedesousa.github.io/ChessOpener/

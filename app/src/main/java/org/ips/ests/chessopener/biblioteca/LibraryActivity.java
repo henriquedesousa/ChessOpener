@@ -3,14 +3,15 @@ package org.ips.ests.chessopener.biblioteca;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
 import org.ips.ests.chessopener.R;
 import org.ips.ests.chessopener.Start;
 import org.ips.ests.chessopener.model.Opening;
@@ -33,10 +34,6 @@ public class LibraryActivity extends AppCompatActivity implements NavigationDraw
 
     private ViewPager pager;
     private ViewPagerAdapter adapter;
-    /** The tabs of the ViewPager */
-    private SlidingTabLayout tabs;
-    /** The titles of the Tabs */
-    private CharSequence Titles[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +42,8 @@ public class LibraryActivity extends AppCompatActivity implements NavigationDraw
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
 
-        Titles = new CharSequence[] {
+        /* The titles of the Tabs */
+        CharSequence[] titles = new CharSequence[]{
                 getString(R.string.tab_description),
                 getString(R.string.tab_history),
                 getString(R.string.tab_video)
@@ -87,23 +85,19 @@ public class LibraryActivity extends AppCompatActivity implements NavigationDraw
 
         // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles for the Tabs and Number Of Tabs.
         // Instantiates the adapter with the Opening object if not null, or the first Opening from the model
-        adapter =  new ViewPagerAdapter(getSupportFragmentManager(), Titles, Titles.length, opening);
+        adapter =  new ViewPagerAdapter(getSupportFragmentManager(), titles, titles.length, opening);
 
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
 
         // Assigning the Sliding Tab Layout View
-        tabs = (SlidingTabLayout) findViewById(R.id.tabs);
+        /* The tabs of the ViewPager */
+        SlidingTabLayout tabs = (SlidingTabLayout) findViewById(R.id.tabs);
         tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
 
         // Setting Custom Color for the Scroll bar indicator of the Tab View
-        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-            @Override
-            public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.tabsScrollColor);
-            }
-        });
+        tabs.setCustomTabColorizer(position -> getResources().getColor(R.color.tabsScrollColor));
 
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
@@ -160,6 +154,7 @@ public class LibraryActivity extends AppCompatActivity implements NavigationDraw
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast.makeText(this, getString(R.string.not_implemented), Toast.LENGTH_SHORT).show();
             return true;
         }
 

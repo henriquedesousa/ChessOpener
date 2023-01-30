@@ -3,13 +3,15 @@ package org.ips.ests.chessopener.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 
@@ -29,7 +31,7 @@ public class Tab3 extends BaseTab {
     ImageView iv;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.tab_3, container, false);
 
         btnVideo = (Button) view.findViewById(R.id.btnVideo);
@@ -51,18 +53,14 @@ public class Tab3 extends BaseTab {
 
         if (opening.getYoutubeThumbURL().length() > 0) {
 
-            btnVideo.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(opening.getYoutubeVideoURL())));
-                }
-            });
+            btnVideo.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(opening.getYoutubeVideoURL()))));
 
         } else {
             btnVideo.setClickable(false);
         }
 
 
-        Glide.with(this)
+        Glide.with(this.requireContext())
                 .load(opening.getYoutubeThumbURL())
                 .fitCenter()
                 .placeholder(R.drawable.failed_to_load)

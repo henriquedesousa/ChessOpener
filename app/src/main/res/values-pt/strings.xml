@@ -2,7 +2,9 @@
 <resources>
     <string name="app_name">ChessOpener</string>
     <string name="button_openings_library">Biblioteca de Aberturas</string>
-    <string name="about">
+
+    <string name="about">About</string>
+    <string name="description">
                     <![CDATA[
 
         Chess Opener é uma aplicação com licença Open Source GNU GPL V2 Licence.<br />
@@ -13,29 +15,60 @@ Tem 2 modos de jogo, Jogador contra Jogador ou Jogador contra Android.<br /><br 
 Informação e bibliotecas de terceiros usados:<br />
 - informação de várias aberturas na Wikipedia<br />
 - Jcarolus\' Chess<br />
-- Android Support Library v4<br />
+- AndroidX library<br />
 - Bumptech\'s Glide biblioteca de carregamento de imagens<br />
 - Imagens do tipo Wikimedia creative commons
 
 ]]>
+</string>
 
-    </string>
     <string name="action_settings">Opções</string>
     <string name="activity_chessboard_name">Tabuleiro de Xadrez</string>
     <string name="activity_library_name">Biblioteca de Aberturas</string>
     <string name="alert_cancel">Cancelar</string>
     <string name="alert_no">Não</string>
     <string name="alert_ok">OK</string>
+    <string name="title_pick_promo">Escolha peça de promoção</string>
+    <string name="title_castle">Roque?</string>
     <string name="alert_yes">Sim</string>
+    <string name="tab_description">Intro</string>
+    <string name="tab_history">História</string>
+    <string name="tab_video">Vídeo</string>
     <string name="button_new">Novo</string>
     <string name="button_no_opening">Nenhuma Abertura</string>
+    <string name="choice_queen">Rainha</string>
+    <string name="choice_rook">Torre</string>
+    <string name="choice_bishop">Bispo</string>
+    <string name="choice_knight">Cavalo</string>
     <string name="button_ok">OK</string>
     <string name="button_player_vs_android">Jogador Vs Android</string>
     <string name="button_player_vs_player">Jogador Vs Jogador</string>
     <string name="msg_illegal_move">Jogada ilegal</string>
-    <string name="msg_wait">Por favor aguarde...</string>
+    <!-- Strings da API -->
+    <string name="state_play">em jogo</string>
+    <string name="state_draw">empate</string>
+    <string name="state_draw_material">empate (material)</string>
+    <string name="state_draw_50">empate (regra 50 movimentos)</string>
+    <string name="state_draw_stalemate">empate (stalemate)</string>
+    <string name="state_draw_repeat">empate (3 repetições)</string>
+    <string name="state_mate">mate</string>
+    <string name="state_check">check</string>
+    <string name="state_time">tempo</string>
+    <string name="state_resigned">desistiu</string>
+    <string name="state_aborted">abortado</string>
+    <string name="state_adjourned">adiado</string>
+    <string name="msg_wait">Por favor aguarde…</string>
     <string name="no_description">Sem descrição</string>
+    <string name="title_annotate">Anotar</string>
+    <string name="title_create_new_line">Criar nova linha?</string>
+    <string name="err_load_fen">Posição FEN não pode ser carregada</string>
+    <string name="err_load_pgn">Histórico FEN não pode ser carregado</string>
+    <string name="err_no_clip_text">Não existe texto na área de transferência</string>
+    <string name="chess960_position_nr">Posição Chess 960 número %d</string>
     <string name="title_activity_library">Actividade Biblioteca</string>
     <string name="toast_opening_not_in_db">Abertura não existente na base de dados</string>
+    <string name="drawer_open">Menu aberto</string>
+    <string name="drawer_close">Menu fechado</string>
+    <string name="not_implemented">Não implementado</string>
 
 </resources>

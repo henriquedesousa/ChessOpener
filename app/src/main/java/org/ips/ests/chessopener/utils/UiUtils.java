@@ -2,10 +2,10 @@ package org.ips.ests.chessopener.utils;
 
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.support.v7.app.AlertDialog;
 import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import org.ips.ests.chessopener.R;
 
@@ -19,7 +19,7 @@ public class UiUtils {
 		AlertDialog.Builder builder =
 				new AlertDialog.Builder(context, R.style.AppCompatAlertDialogStyle);
 		builder.setTitle("Chess Opener " + getVersion(context));
-		builder.setMessage(Html.fromHtml(context.getString(R.string.about)));
+		builder.setMessage(Html.fromHtml(context.getString(R.string.description)));
 		builder.setPositiveButton("OK", null);
 		builder.show();
 	}

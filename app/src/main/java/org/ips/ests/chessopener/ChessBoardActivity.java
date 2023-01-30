@@ -1,16 +1,6 @@
 package org.ips.ests.chessopener;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Calendar;
-import java.util.Date;
-
-import org.ips.ests.chessopener.api.BoardConstants;
-import org.ips.ests.chessopener.api.ChessView;
-import org.ips.ests.chessopener.api.chess.MyPGNProvider;
-import org.ips.ests.chessopener.api.chess.PGNColumns;
-
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -22,14 +12,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.speech.tts.TextToSpeech;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.ClipboardManager;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import org.ips.ests.chessopener.api.BoardConstants;
+import org.ips.ests.chessopener.api.ChessView;
+import org.ips.ests.chessopener.api.chess.MyPGNProvider;
+import org.ips.ests.chessopener.api.chess.PGNColumns;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class ChessBoardActivity extends AppCompatActivity {
 
@@ -37,17 +33,16 @@ public class ChessBoardActivity extends AppCompatActivity {
 	private ChessView _chessView;
 	// private SaveGameDlg _dlgSave;
 	// private ImageButton _butMenu;
-	private String[] _itemsMenu; // convenience member for 'dynamic final
+	// private String[] _itemsMenu; // convenience member for 'dynamic final
 									// variable' purpose
-	// private Uri _uri;
-	// private String _action;
+	// private Uri _uri
+	// private String _action
 	private long _lGameID;
 	private float _fGameRating;
 	private PowerManager.WakeLock _wakeLock;
 	private Uri _uriNotification;
 	private Ringtone _ringNotification;
-	private String _keyboardBuffer;
-	private TextToSpeech _speech = null;
+	private final TextToSpeech _speech = null;
 
 	public static final int REQUEST_SETUP = 1;
 	public static final int REQUEST_OPEN = 2;
@@ -56,6 +51,7 @@ public class ChessBoardActivity extends AppCompatActivity {
 	public static final int REQUEST_FROM_QR_CODE = 5;
 
 	/** Called when the activity is first created. */
+	@SuppressLint("InvalidWakeLockTag")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,7 +70,7 @@ public class ChessBoardActivity extends AppCompatActivity {
 
 
 		_chessView = new ChessView(this);
-		_keyboardBuffer = "";
+		// String _keyboardBuffer = "";
 
 		_lGameID = 0;
 		_fGameRating = 2.5F;
@@ -89,7 +85,7 @@ public class ChessBoardActivity extends AppCompatActivity {
 		SharedPreferences prefs = getSharedPreferences("ChessPlayer", MODE_PRIVATE);
 
 		if (prefs.getBoolean("wakeLock", true)) {
-			_wakeLock.acquire();
+			_wakeLock.acquire(10*60*1000L /*10 minutes*/);
 		}
 
 		String sOpeningDb = prefs.getString("OpeningDb", null);
@@ -108,7 +104,7 @@ public class ChessBoardActivity extends AppCompatActivity {
 			_chessView.setOpeningDb(uri.getPath());
 		}
 
-		String sPGN = "";
+		StringBuilder sPGN;
 		String sFEN = prefs.getString("FEN", null);
 
 		String sTmp = prefs.getString("NotificationUri", null);
@@ -126,8 +122,8 @@ public class ChessBoardActivity extends AppCompatActivity {
 
 		if (uri != null) {
 			_lGameID = 0;
-			sPGN = "";
-			Log.i("onResume", "opening " + uri.toString());
+			sPGN = new StringBuilder();
+			Log.i("onResume", "opening " + uri);
 			InputStream is;
 			try {
 				is = getContentResolver().openInputStream(uri);
@@ -135,17 +131,17 @@ public class ChessBoardActivity extends AppCompatActivity {
 				int len;
 
 				while ((len = is.read(b)) > 0) {
-					sPGN += new String(b);
+					sPGN.append(new String(b));
 				}
 				is.close();
 
-				sPGN = sPGN.trim();
+				sPGN = new StringBuilder(sPGN.toString().trim());
 
-				loadPGN(sPGN);
+				loadPGN(sPGN.toString());
 
 			} catch (Exception e) {
-				sPGN = prefs.getString("game_pgn", "");
-				Log.e("onResume", "Failed " + e.toString());
+				sPGN = new StringBuilder(prefs.getString("game_pgn", ""));
+				Log.e("onResume", "Failed " + e);
 			}
 		} else if (sFEN != null) {
 			// default, from prefs
@@ -158,9 +154,9 @@ public class ChessBoardActivity extends AppCompatActivity {
 				Log.i("onResume", "loading saved game " + _lGameID);
 				loadGame();
 			} else {
-				sPGN = prefs.getString("game_pgn", null);
+				sPGN = new StringBuilder(prefs.getString("game_pgn", null));
 				Log.i("onResume", "pgn: " + sPGN);
-				loadPGN(sPGN);
+				loadPGN(sPGN.toString());
 			}
 		}
 
@@ -217,6 +213,7 @@ public class ChessBoardActivity extends AppCompatActivity {
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+		super.onActivityResult(requestCode, resultCode, data);
 		Log.i("main", "onActivityResult");
 
 		if (requestCode == REQUEST_SETUP) {
@@ -272,7 +269,7 @@ public class ChessBoardActivity extends AppCompatActivity {
 	private void loadFEN(String sFEN) {
 		if (sFEN != null) {
 			Log.i("loadFEN", sFEN);
-			if (false == _chessView.initFEN(sFEN, true)) {
+			if (!_chessView.initFEN(sFEN, true)) {
 				doToast(getString(R.string.err_load_fen));
 				Log.e("loadFEN", "FAILED");
 			}
@@ -282,7 +279,7 @@ public class ChessBoardActivity extends AppCompatActivity {
 
 	private void loadPGN(String sPGN) {
 		if (sPGN != null) {
-			if (false == _chessView.loadPGN(sPGN)) {
+			if (!_chessView.loadPGN(sPGN)) {
 				doToast(getString(R.string.err_load_pgn));
 			}
 			_chessView.updateState();
@@ -318,37 +315,40 @@ public class ChessBoardActivity extends AppCompatActivity {
 		editor.commit();
 	}
 
+	@SuppressLint("Range")
 	private void loadGame() {
 		if (_lGameID > 0) {
 			Uri uri = ContentUris.withAppendedId(MyPGNProvider.CONTENT_URI,
 					_lGameID);
-			Cursor c = managedQuery(uri, PGNColumns.COLUMNS, null, null, null);
-			if (c != null && c.getCount() == 1) {
+			try ( Cursor c = managedQuery(uri, PGNColumns.COLUMNS, null, null, null) ) {
+				if (c != null && c.getCount() == 1) {
 
-				c.moveToFirst();
+					c.moveToFirst();
 
-				_lGameID = c.getLong(c.getColumnIndex(PGNColumns._ID));
-				String sPGN = c.getString(c.getColumnIndex(PGNColumns.PGN));
-				_chessView.loadPGN(sPGN);
+					_lGameID = c.getLong(c.getColumnIndex(PGNColumns._ID));
+					String sPGN = c.getString(c.getColumnIndex(PGNColumns.PGN));
+					_chessView.loadPGN(sPGN);
 
-				_chessView.setPGNHeadProperty("Event",
-						c.getString(c.getColumnIndex(PGNColumns.EVENT)));
-				_chessView.setPGNHeadProperty("White",
-						c.getString(c.getColumnIndex(PGNColumns.WHITE)));
-				_chessView.setPGNHeadProperty("Black",
-						c.getString(c.getColumnIndex(PGNColumns.BLACK)));
-				_chessView.setDateLong(c.getLong(c
-						.getColumnIndex(PGNColumns.DATE)));
+					_chessView.setPGNHeadProperty("Event",
+							c.getString(c.getColumnIndex(PGNColumns.EVENT)));
+					_chessView.setPGNHeadProperty("White",
+							c.getString(c.getColumnIndex(PGNColumns.WHITE)));
+					_chessView.setPGNHeadProperty("Black",
+							c.getString(c.getColumnIndex(PGNColumns.BLACK)));
+					_chessView.setDateLong(c.getLong(c
+							.getColumnIndex(PGNColumns.DATE)));
 
-				_fGameRating = c.getFloat(c.getColumnIndex(PGNColumns.RATING));
-			} else {
-				_lGameID = 0; // probably deleted
+					_fGameRating = c.getFloat(c.getColumnIndex(PGNColumns.RATING));
+				} else {
+					_lGameID = 0; // probably deleted
+				}
 			}
 		} else {
 			_lGameID = 0;
 		}
 	}
 
+	@SuppressLint("Range")
 	public void saveGame(ContentValues values, boolean bCopy) {
 
 		SharedPreferences.Editor editor = getSharedPreferences("ChessPlayer",
@@ -367,18 +367,19 @@ public class ChessBoardActivity extends AppCompatActivity {
 		_fGameRating = (Float) values.get(PGNColumns.RATING);
 		//
 
-		if (_lGameID > 0 && (bCopy == false)) {
+		if (_lGameID > 0 && !bCopy) {
 			Uri uri = ContentUris.withAppendedId(MyPGNProvider.CONTENT_URI,
 					_lGameID);
 			getContentResolver().update(uri, values, null, null);
 		} else {
 			Uri uri = MyPGNProvider.CONTENT_URI;
 			Uri uriInsert = getContentResolver().insert(uri, values);
-			Cursor c = managedQuery(uriInsert, new String[] { PGNColumns._ID },
-					null, null, null);
-			if (c != null && c.getCount() == 1) {
-				c.moveToFirst();
-				_lGameID = c.getLong(c.getColumnIndex(PGNColumns._ID));
+			try ( Cursor c = managedQuery(uriInsert, new String[] { PGNColumns._ID },
+					null, null, null) ) {
+				if (c != null && c.getCount() == 1) {
+					c.moveToFirst();
+					_lGameID = c.getLong(c.getColumnIndex(PGNColumns._ID));
+				}
 			}
 		}
 	}

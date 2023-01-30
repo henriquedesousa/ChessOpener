@@ -1,11 +1,13 @@
 package org.ips.ests.chessopener.biblioteca;
 
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.ips.ests.chessopener.R;
 
@@ -14,7 +16,7 @@ import java.util.List;
 
 public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDrawerAdapter.ViewHolder> {
 
-    private List<NavigationItem> mData;
+    private final List<NavigationItem> mData;
     private NavigationDrawerCallbacks mNavigationDrawerCallbacks;
     private View mSelectedView;
     private int mSelectedPosition;
@@ -31,24 +33,22 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
         mNavigationDrawerCallbacks = navigationDrawerCallbacks;
     }
 
+    @NonNull
     @Override
     public NavigationDrawerAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.drawer_row, viewGroup, false);
         final ViewHolder viewHolder = new ViewHolder(v);
         viewHolder.itemView.setClickable(true);
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                                                   @Override
-                                                   public void onClick(View v) {
-                                                       if (mSelectedView != null) {
-                                                           mSelectedView.setSelected(false);
-                                                       }
-                                                       mSelectedPosition = viewHolder.getPosition();
-                                                       v.setSelected(true);
-                                                       mSelectedView = v;
-                                                       if (mNavigationDrawerCallbacks != null)
-                                                           mNavigationDrawerCallbacks.onNavigationDrawerItemSelected(viewHolder.getPosition());
-                                                   }
-                                               }
+        viewHolder.itemView.setOnClickListener(v1 -> {
+            if (mSelectedView != null) {
+                mSelectedView.setSelected(false);
+            }
+            mSelectedPosition = viewHolder.getPosition();
+            v1.setSelected(true);
+            mSelectedView = v1;
+            if (mNavigationDrawerCallbacks != null)
+                mNavigationDrawerCallbacks.onNavigationDrawerItemSelected(viewHolder.getPosition());
+        }
         );
         viewHolder.itemView.setBackgroundResource(R.drawable.row_selector);
         return viewHolder;
@@ -56,6 +56,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 
     @Override
     public void onBindViewHolder(NavigationDrawerAdapter.ViewHolder viewHolder, int i) {
+        i = viewHolder.getBindingAdapterPosition();
         viewHolder.textView.setText(mData.get(i).getText());
         viewHolder.textView.setCompoundDrawablesWithIntrinsicBounds(mData.get(i).getDrawable(), null, null, null);
         if (mSelectedPosition == i) {

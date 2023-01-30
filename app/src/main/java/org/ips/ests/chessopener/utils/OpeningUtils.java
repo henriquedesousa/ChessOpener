@@ -1,7 +1,8 @@
 package org.ips.ests.chessopener.utils;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import org.ips.ests.chessopener.R;
 import org.ips.ests.chessopener.model.Opening;
@@ -45,9 +46,9 @@ public class OpeningUtils {
 
     /**
      *
-     * @param str
-     * @param openings
-     * @return
+     * @param str opening's name
+     * @param openings list of openings
+     * @return Opening
      */
     public static Opening findOpeningFromString(@NonNull String str, @NonNull ArrayList<Opening> openings) {
 

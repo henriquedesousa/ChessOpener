@@ -21,7 +21,9 @@
             android:layout_marginBottom="8dp"
             android:visibility="invisible"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:contentDescription="@string/about" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -60,13 +62,14 @@
         android:layout_marginBottom="8dp"
         android:background="#1f000000" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/drawerList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/separator"
         android:background="@color/myDrawerBackground"
         android:clickable="true"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        android:focusable="true" />
 
 </RelativeLayout>

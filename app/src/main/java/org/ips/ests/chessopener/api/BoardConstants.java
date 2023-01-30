@@ -2,7 +2,9 @@ package org.ips.ests.chessopener.api;
 
 // "split" object for ChessBoard. contains the constants of the board object
 
-public class BoardConstants 
+import org.ips.ests.chessopener.api.chess.Valuation;
+
+public class BoardConstants
 {
 	public static final int RESULT_960 = 1;
 

@@ -16,16 +16,17 @@ import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.ips.ests.chessopener.R;
 import org.ips.ests.chessopener.Start;
@@ -122,7 +123,6 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
 
     /**
      * Populates the left menu with all the openings in the database
-     * @return
      */
     public List<NavigationItem> getMenu() {
         List<NavigationItem> items = new ArrayList<>();
@@ -177,12 +177,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         }
 
         // Defer code dependent on restoration of previous instance state.
-        mDrawerLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mActionBarDrawerToggle.syncState();
-            }
-        });
+        mDrawerLayout.post(() -> mActionBarDrawerToggle.syncState());
 
         mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
     }

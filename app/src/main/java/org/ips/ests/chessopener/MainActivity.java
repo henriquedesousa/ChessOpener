@@ -2,12 +2,14 @@ package org.ips.ests.chessopener;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import org.ips.ests.chessopener.api.ChessView;
 import org.ips.ests.chessopener.api.GameControl;
@@ -29,38 +31,27 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button pvp = (Button) findViewById(R.id.button_training);
-        pvp.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                ChessView._playMode = GameControl.HUMAN_HUMAN;
-                Intent myIntent = new Intent(MainActivity.this, ChessBoardActivity.class);
-                MainActivity.this.startActivity(myIntent);
-            }
-        });
+        pvp.setOnClickListener(v -> {
+			ChessView._playMode = GameControl.HUMAN_HUMAN;
+			Intent myIntent = new Intent(MainActivity.this, ChessBoardActivity.class);
+			MainActivity.this.startActivity(myIntent);
+		});
 
 
 
 
 		Button pva = (Button) findViewById(R.id.button_game);
-		pva.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ChessView._playMode = GameControl.HUMAN_PC;
-                Intent myIntent = new Intent(MainActivity.this, ChessBoardActivity.class);
-                MainActivity.this.startActivity(myIntent);
-            }
-        });
+		pva.setOnClickListener(v -> {
+			ChessView._playMode = GameControl.HUMAN_PC;
+			Intent myIntent = new Intent(MainActivity.this, ChessBoardActivity.class);
+			MainActivity.this.startActivity(myIntent);
+		});
 
 		Button btnBiblioteca = (Button) findViewById(R.id.button_library);
-		btnBiblioteca.setOnClickListener(new View.OnClickListener() {
+		btnBiblioteca.setOnClickListener(v -> {
 
-			@Override
-			public void onClick(View v) {
-
-				Intent myIntent = new Intent(MainActivity.this, LibraryActivity.class);
-				MainActivity.this.startActivity(myIntent);
-			}
+			Intent myIntent = new Intent(MainActivity.this, LibraryActivity.class);
+			MainActivity.this.startActivity(myIntent);
 		});
 
 		if (PreferenceUtils.isFirstUsage(this)) {
@@ -83,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			Toast.makeText(this, getString(R.string.not_implemented), Toast.LENGTH_SHORT).show();
 			return true;
 
 

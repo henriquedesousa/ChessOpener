@@ -14,79 +14,79 @@
 
     <string-array name="openings_image_url">
         <item id="0" name="Sicilian defense">
-		http://www.thechesswebsite.com/wp-content/uploads/2012/07/sicilian-big.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2012/07/sicilian-big.jpg
         </item>
         <item id="1" name="Alekhine defense">
-		http://www.thechesswebsite.com/images/alekhinedefensebig.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2015/08/the-alekhine-defense.jpg
         </item>
 		<item id="2" name="Caro-Kann">
-		http://www.thechesswebsite.com/wp-content/uploads/2012/07/carokann.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2012/07/carokann.jpg
         </item>
 		<item id="3" name="Latvian Gambit">
-		http://www.thechesswebsite.com/wp-content/uploads/2012/07/LatvianGambit_big.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2012/07/LatvianGambit_big.jpg
         </item>
 		<item id="4" name="Ponziani Opening">
-		http://www.thechesswebsite.com/wp-content/uploads/2012/07/ponziani-big.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2012/07/ponziani-big.jpg
         </item>
 		<item id="5" name="Blackmar-Diemer Gambit">
-		http://www.thechesswebsite.com/wp-content/uploads/2012/07/blackmar_big.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2012/07/blackmar_big.jpg
          </item>
 		<item id="6" name="Budapest Gambit">
-		http://www.thechesswebsite.com/wp-content/uploads/2012/07/budapest_big.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2012/07/budapest_big.jpg
          </item>
 		<item id="7" name="Calabrese Counter-gambit">
-		http://www.thechesswebsite.com/wp-content/uploads/2014/05/Calabrese-Countergambit.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2015/08/the-calabrese-countergambit.jpg
         </item>
 		<item id="8" name="Evans Gambit">
-		http://www.thechesswebsite.com/wp-content/uploads/2012/07/evansgambit.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2012/07/evansgambit.jpg
          </item>
 		<item id="9" name="Fried Liver Attack">
-		http://www.thechesswebsite.com/wp-content/uploads/2012/07/fried-liver-attack-big.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2012/07/fried-liver-attack-big.jpg
          </item>
 		<item id="10" name="Grunfeld Defense">
-		http://www.thechesswebsite.com/wp-content/uploads/2012/07/grunfeld.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2012/07/grunfeld.jpg
          </item>
 		<item id="11" name="Halloween Gambit">
-		http://www.thechesswebsite.com/wp-content/uploads/2012/07/HalloweenGambit.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2012/07/HalloweenGambit.jpg
          </item>
 		<item id="12" name="Petrov Defense">
-		http://www.thechesswebsite.com/wp-content/uploads/2012/07/Petrov.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2012/07/Petrov.jpg
          </item>
 		<item id="13" name="Philidor's Defense">
-		http://www.thechesswebsite.com/wp-content/uploads/2014/12/philidor.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2014/12/philidor.jpg
          </item>
 		<item id="14" name="Queen’s Indian Defense">
-		http://www.thechesswebsite.com/wp-content/uploads/2012/07/queens-indian-defense.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2012/07/queens-indian-defense.jpg
          </item>
 		<item id="15" name="Semi-Slav Defense">
-		http://www.thechesswebsite.com/wp-content/uploads/2012/07/semi-slav-big.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2012/07/semi-slav-big.jpg
          </item>
 		<item id="16" name="Smith-Morra Gambit">
-		http://www.thechesswebsite.com/wp-content/uploads/2012/07/smithmorra_big.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2012/07/smithmorra_big.jpg
          </item>
 		<item id="17" name="Vienna Game">
-		http://www.thechesswebsite.com/wp-content/uploads/2012/07/traxler-big.png
+		https://www.thechesswebsite.com/wp-content/uploads/2012/07/traxler-big.png
         </item>
 		<item id="18" name="King's Indian Defense">
-		http://www.thechesswebsite.com/wp-content/uploads/2012/07/kings-indian-defense-big.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2012/07/kings-indian-defense-big.jpg
          </item>
 		<item id="19" name="Giuoco Piano">
-		http://www.thechesswebsite.com/wp-content/uploads/2012/07/Giuoco-Piano.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2015/08/the-giuoco-piano.jpg
 		</item>
 		<item id="20" name="King's pawn opening">
-		http://www.chessvideos.tv/chess-opening-database/static/e4.gif
+		https://i.ytimg.com/vi/n5ImJ2row6E/hqdefault.jpg
 		</item>
 		<item id="21" name="Queen's pawn game">
-		http://i.ytimg.com/vi/pZPES80yWUc/hqdefault.jpg
+		https://i.ytimg.com/vi/pZPES80yWUc/hqdefault.jpg
 		</item>
 		<item id="22" name="Bird's Opening">
-		http://www.thechesswebsite.com/images/birdsopening.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2015/08/the-birds-opening.jpg
 		</item>
 		<item id="23" name="Van't Kruijs Opening">
-		http://i.ytimg.com/vi/FMZOFlOwLoE/maxresdefault.jpg
+		https://chesspathways.com/wp-content/uploads/2019/09/35a-300x300.png
 		</item>
 		<item id="24" name="French Defense">
-		http://www.thechesswebsite.com/wp-content/uploads/2012/07/French-Defense.jpg
+		https://www.thechesswebsite.com/wp-content/uploads/2012/07/French-Defense.jpg
 		</item>
 
     </string-array>

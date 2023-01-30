@@ -1,14 +1,16 @@
 package org.ips.ests.chessopener.ui;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import org.ips.ests.chessopener.R;
 import org.ips.ests.chessopener.biblioteca.LibraryActivity;
@@ -25,7 +27,7 @@ public class Tab2 extends BaseTab {
     TextView tvHistory;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.tab_2, container, false);
         tvHistory = (TextView) view.findViewById(R.id.tv_history);
 

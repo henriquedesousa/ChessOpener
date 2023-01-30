@@ -7,10 +7,12 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.WindowInsets;
 import android.widget.FrameLayout;
+
+import androidx.annotation.RequiresApi;
+import androidx.core.view.ViewCompat;
 
 import org.ips.ests.chessopener.R;
 
@@ -23,7 +25,7 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
     private Drawable mInsetForeground;
 
     private Rect mInsets;
-    private Rect mTempRect = new Rect();
+    private final Rect mTempRect = new Rect();
 
     public ScrimInsetsFrameLayout(Context context) {
         super(context);
@@ -53,6 +55,7 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
     @Override
     public WindowInsets dispatchApplyWindowInsets(WindowInsets insets) {
         mInsets = new Rect();
