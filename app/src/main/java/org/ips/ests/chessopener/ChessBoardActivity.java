@@ -154,7 +154,7 @@ public class ChessBoardActivity extends AppCompatActivity {
 				Log.i("onResume", "loading saved game " + _lGameID);
 				loadGame();
 			} else {
-				sPGN = new StringBuilder(prefs.getString("game_pgn", null));
+				sPGN = new StringBuilder(prefs.getString("game_pgn", ""));
 				Log.i("onResume", "pgn: " + sPGN);
 				loadPGN(sPGN.toString());
 			}
