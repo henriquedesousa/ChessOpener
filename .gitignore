@@ -31,3 +31,5 @@ proguard/
 # aditional ignored files
 .idea/
 *.iml
+
+.gitconfig
